@@ -115,7 +115,7 @@ export default function HomeComponent() {
                         </div>
                         <div className='flex justify-center text-[3rem] px-[1rem]'>
                             <div className={itim.className}>
-                                {timeLeft.hours} : {timeLeft.minutes} : {timeLeft.seconds}
+                                {timeLeft.hours} : {timeLeft.hours} : {timeLeft.minutes} : {timeLeft.seconds}
                             </div>
                         </div>
                         <div>
