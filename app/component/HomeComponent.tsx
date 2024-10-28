@@ -24,6 +24,7 @@ export default function HomeComponent() {
     const [isFinished, setIsFinished] = useState(false);
     const [musicActive, setMusicActive] = useState(false);
     const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft());
+    const [currentSongIndex, setCurrentSongIndex] = useState(0);
     const route = useRouter();
 
     useEffect(() => {
@@ -40,6 +41,35 @@ export default function HomeComponent() {
         // Cleanup the timer on component unmount
         return () => clearInterval(timer);
     }, []);
+
+    const songs = [
+        '/labirin.mp3',
+        '/jatuh-suka.mp3',
+        '/tukar-jiwa.mp3',
+        '/cahaya.mp3',
+        '/langit-abu-abu.mp3',
+    ];
+
+    useEffect(() => {
+        if (audioRef.current) {
+            audioRef.current.src = songs[currentSongIndex];
+            if (musicActive) {
+                audioRef.current.play();
+            }
+            audioRef.current.addEventListener('ended', playNextSong);
+        }
+
+        return () => {
+            if (audioRef.current) {
+                audioRef.current.removeEventListener('ended', playNextSong);
+            }
+        };
+    }, [currentSongIndex, musicActive]);
+
+    const playNextSong = () => {
+        setCurrentSongIndex((prevIndex) => (prevIndex + 1) % songs.length);
+    };
+
 
     function calculateTimeLeft(): TimeLeft {
         const now = new Date().getTime(); // Get current timestamp
