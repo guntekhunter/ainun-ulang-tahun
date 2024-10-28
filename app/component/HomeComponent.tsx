@@ -18,8 +18,8 @@ interface TimeLeft {
 }
 
 export default function HomeComponent() {
-    // const targetDate = new Date('2024-11-02T00:00:00').getTime();
-    const targetDate = new Date('2024-10-28T21:19:00').getTime();
+    const targetDate = new Date('2024-11-02T00:00:00').getTime();
+    // const targetDate = new Date('2024-10-28T21:19:00').getTime();
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const [isFinished, setIsFinished] = useState(false);
     const [musicActive, setMusicActive] = useState(false);
