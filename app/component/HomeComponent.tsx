@@ -63,11 +63,9 @@ export default function HomeComponent() {
         if (musicActive) {
             audioRef.current.pause();
         } else {
-            audioRef.current.play().catch((error) => {
-                console.error("Error playing audio: ", error);
-            });
+            audioRef.current.play();
         }
-        setMusicActive(!musicActive);
+        setMusicActive(!musicActive)
     }
 
     const changePage = () => {
