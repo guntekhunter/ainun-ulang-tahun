@@ -30,7 +30,7 @@ export default function page() {
         setIsFoto(!isFoto)
     }
     return (
-        <div className="p-[2rem] relative bg-[url('/kertas.png')] bg-cover">
+        <div className="p-[2rem] relative bg-[url('/kertas.png')] bg-cover ">
             <audio ref={audioRef} src="/rex.mp3" preload="auto" />
             <div className='flex justify-end z-10 relative'>
                 <div className='space-y-1'>
@@ -53,12 +53,12 @@ export default function page() {
             <div className="h-[80vh] flex justify-around">
                 <div className="h-full flex items-center">
                     <div>
-                        <h1 className='font-bold text-[1.7rem] text-center'>Turut Bersuka Cita</h1>
+                        <h1 className='font-bold text-[1.5rem] text-center mt-[3rem]'>Turut Bersuka Cita</h1>
                         <div className='relative'>
                             <h2 className='font-bold text-[1rem] text-center z-10 relative'>Atas <span className='text-white'>Berulangtahunnya</span></h2>
                             <div className='w-[49%] h-[2rem] bg-[#FF6B01] absolute top-0 right-[20%] rotate-2 z-0'></div>
                         </div>
-                        <button onClick={changePhoto} className='w-full flex justify-center mt-[1rem] z-10'>
+                        <button onClick={changePhoto} className='w-full flex justify-center mt-[1rem] z-10 mt-[3rem]'>
                             {
                                 isFoto ? (
                                     <Image src="/setelah.png" alt="" width={5000} height={5000} className='w-[80%]' />
@@ -68,18 +68,18 @@ export default function page() {
                             }
                         </button>
 
-                        <div className='text-center pt-[1rem] space-y-[1rem]'>
+                        <div className='text-center pt-[1rem] space-y-[1rem] mt-[1rem]'>
                             <p className='font-bold'>Ainun Qarimah Cahyatul Ikhlas</p>
-                            <p>Selamat berulang tahun, semoga panjang umur dan sehat selalu, selamat lah pokoknya, semoga terus jadi orang yang menyenangkan. Ashek, alayna kata-kataku di</p>
+                            <p className='text-[.7rem]'>Selamat berulang tahun, semoga panjang umur dan sehat selalu, selamat lah pokoknya, semoga terus jadi orang yang menyenangkan. Ashek, alayna kata-kataku di</p>
                         </div>
-                        <div className='pt-[1rem] w-[60%]'>
+                        <div className='pt-[2rem] w-[60%]'>
                             <div>
-                                <p className='font-bold text-[.8rem]'>Bertanda Tangan Dibawah Ini</p>
-                                <p className='font-bold text-[.5rem] text-center'>Someone that have a feeling for you</p>
-                                <div className='flex justify-center'>
+                                <p className='font-bold text-[.5rem]'>Bertanda Tangan Dibawah Ini</p>
+                                <p className='font-bold text-[.3rem]'>Someone that have a feeling for you</p>
+                                <div className='flex'>
                                     <Image src="/ttd.png" alt="" width={5000} height={5000} className='w-[50%]' />
                                 </div>
-                                <p className='font-bold text-[.8rem]'>Guntek, 2-November-2024</p>
+                                <p className='font-bold text-[.5rem]'>Guntek, 2-November-2024</p>
                             </div>
                         </div>
                     </div>
