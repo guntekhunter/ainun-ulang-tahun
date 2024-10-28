@@ -74,7 +74,7 @@ export default function HomeComponent() {
 
     return (
         <div className='p-[2rem] '>
-            <audio ref={audioRef} src="/rex.mp3" preload="auto" />
+            <audio ref={audioRef} src="/tulus.mp3" preload="auto" />
             <div className='flex justify-end'>
                 <div className='space-y-1'>
                     <div className='w-full flex justify-center'>
