@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import React, { useEffect, useRef, useState } from 'react'
 import { Itim } from 'next/font/google'
+import { useRouter } from 'next/navigation';
 
 const itim = Itim({
     weight: '400',
@@ -19,16 +20,25 @@ interface TimeLeft {
 
 export default function HomeComponent() {
     const targetDate = new Date('2024-11-02T00:00:00').getTime();
+    // const targetDate = new Date('2024-10-28T20:53:00').getTime();
     const audioRef = useRef<HTMLAudioElement | null>(null);
+    const [isFinished, setIsFinished] = useState(false);
 
-    const [musicActive, setMusicActive] = useState(true)
+    const [musicActive, setMusicActive] = useState(false)
 
     const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft());
+
+    const route = useRouter()
 
     useEffect(() => {
         // Update the countdown every second
         const timer = setInterval(() => {
-            setTimeLeft(calculateTimeLeft());
+            const newTimeLeft = calculateTimeLeft();
+            setTimeLeft(newTimeLeft);
+            if (newTimeLeft.days === 0 && newTimeLeft.hours === 0 && newTimeLeft.minutes === 0 && newTimeLeft.seconds === 0) {
+                setIsFinished(true); // Set isFinished to true when the timer reaches zero
+                clearInterval(timer); // Stop the timer
+            }
         }, 1000);
 
         // Cleanup the timer on component unmount
@@ -62,26 +72,43 @@ export default function HomeComponent() {
     }
 
     const setMusic = () => {
+        if (!audioRef.current) return;
+
+        if (musicActive) {
+            audioRef.current.pause();
+        } else {
+            audioRef.current.play();
+        }
         setMusicActive(!musicActive)
     }
 
-    console.log("statusnya", musicActive)
+    const changePage = () => {
+        route.push("/hbd")
+    }
+    console.log(isFinished)
     return (
         <div className='p-[2rem]'>
-            <audio ref={audioRef} src="/songs/song.mp3" preload="auto" />
+            <audio ref={audioRef} src="/tulus.mp3" preload="auto" />
             <div className='flex justify-end'>
-                <button className='' onClick={setMusic}>
-                    {
-                        musicActive ? (
-                            <Image src="/musik-aktif.png" alt="" width={500} height={500} className='w-[1rem]' />
-                        ) : (
-                            <Image src="/musik-nonaktif.png" alt="" width={500} height={500} className='w-[1.2rem]' />
-                        )
-                    }
-                </button>
+                <div className='space-y-1'>
+                    <div className='w-full flex justify-center'>
+                        <button className='' onClick={setMusic}>
+                            {
+                                musicActive ? (
+                                    <Image src="/musik-aktif.png" alt="" width={500} height={500} className='w-[1rem]' />
+                                ) : (
+                                    <Image src="/musik-nonaktif.png" alt="" width={500} height={500} className='w-[1.2rem]' />
+                                )
+                            }
+                        </button>
+                    </div>
+                    <p className='text-[.7rem]'>
+                        Dengar Lagu
+                    </p>
+                </div>
             </div>
             <div className="h-[80vh] flex justify-around">
-                <div className="bg-red-200 h-full flex items-center">
+                <div className="h-full flex items-center">
                     <div >
                         <div className='justify-around flex'>
                             <Image src="/kucing.png" alt="" width={500} height={500} className='w-[5rem] animate-bounce' />
@@ -92,10 +119,16 @@ export default function HomeComponent() {
                             </div>
                         </div>
                         <div>
-                            <p className='text-[1rem] justify-around flex'>Tunggu Ges...</p>
+                            {
+                                isFinished ? (
+                                    <p className='text-[1rem] justify-around flex'>Selamat Ulang Tahun</p>
+                                ) : (
+                                    <p className='text-[1rem] justify-around flex'>Tunggu Ges...</p>
+                                )
+                            }
                         </div>
                         <div className='flex justify-around'>
-                            <button className='w-[10rem] bg-gray-200 flex justify-around py-[.5rem] rounded-md mt-[1rem] bg-black'>
+                            <button onClick={changePage} className={`w-[10rem] ${isFinished ? "bg-black" : "bg-gray-200"} flex justify-around py-[.5rem] rounded-md mt-[1rem] bg-black`} disabled={!isFinished}>
                                 <Image src="/surprise.png" alt="" width={500} height={500} className='w-[2rem] invert' />
                             </button>
                         </div>
